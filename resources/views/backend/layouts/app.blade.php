@@ -10,10 +10,12 @@
 <body class="flex">
 
     <!-- Sidebar -->
-    @include('backend.layouts.sidebar')
+    <div id="sidebar" class="bg-gray-800 text-white w-64 h-screen fixed top-0 left-0 transition-all duration-300 transform">
+        @include('backend.layouts.sidebar')
+    </div>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col transition-all duration-300 main-content">
+    <div id="mainContent" class="flex-1 flex flex-col transition-all duration-300 ml-64">
         <!-- Header -->
         @include('backend.layouts.header')
 
@@ -28,10 +30,17 @@
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButton = document.getElementById('sidebarToggle');
             const sidebar = document.getElementById('sidebar');
-            const mainContent = document.querySelector('.main-content');
+            const mainContent = document.getElementById('mainContent');
     
             toggleButton.addEventListener('click', () => {
                 sidebar.classList.toggle('-translate-x-full'); // Hide/show sidebar
+                if (sidebar.classList.contains('-translate-x-full')) {
+                    mainContent.classList.remove('ml-64'); // Remove margin when sidebar is hidden
+                    mainContent.classList.add('ml-0');    // Full width for main content
+                } else {
+                    mainContent.classList.remove('ml-0');
+                    mainContent.classList.add('ml-64');   // Add margin when sidebar is visible
+                }
             });
         });
     </script>    

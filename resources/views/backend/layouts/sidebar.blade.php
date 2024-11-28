@@ -11,7 +11,7 @@
                     </a>
                 </li>
                 <li class="p-4 hover:bg-gray-700">
-                    <a href="#" class="flex items-center space-x-3">
+                    <a href="/users" class="flex items-center space-x-3">
                         <i class="fas fa-users text-gray-300"></i>
                         <span class="text-sm">Users</span>
                     </a>
@@ -19,7 +19,7 @@
                 <li class="p-4 hover:bg-gray-700">
                     <a href="#" class="flex items-center space-x-3">
                         <i class="fas fa-cogs text-gray-300"></i>
-                        <span class="text-sm">Settings</span>
+                        <span class="text-sm">Blogs</span>
                     </a>
                 </li>
                 <li class="p-4 hover:bg-gray-700">
