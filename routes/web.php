@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ScholarshipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +25,13 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::resource('users', UserController::class);
-    Route::get('/blog/{id}', [DashboardController::class, 'viewBlog'])->name('blog.view');
+    Route::resource('blogs', BlogController::class);
+    Route::resource('scholarships', ScholarshipController::class);
 });

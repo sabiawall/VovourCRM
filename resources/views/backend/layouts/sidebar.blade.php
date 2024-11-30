@@ -5,11 +5,11 @@
         <nav>
             <ul>
                 <li class="p-4 hover:bg-gray-700">
-                    <a href="#" class="flex items-center space-x-3">
+                    <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
                         <i class="fas fa-tachometer-alt text-gray-300"></i>
                         <span class="text-sm">Dashboard</span>
                     </a>
-                </li>
+                </li>                
                 <li class="p-4 hover:bg-gray-700">
                     <a href="/users" class="flex items-center space-x-3">
                         <i class="fas fa-users text-gray-300"></i>
@@ -17,15 +17,15 @@
                     </a>
                 </li>
                 <li class="p-4 hover:bg-gray-700">
-                    <a href="#" class="flex items-center space-x-3">
-                        <i class="fas fa-cogs text-gray-300"></i>
+                    <a href="{{ route('blogs.index') }}" class="flex items-center space-x-3">
+                        <i class="fas fa-file-alt text-gray-300"></i>
                         <span class="text-sm">Blogs</span>
                     </a>
                 </li>
                 <li class="p-4 hover:bg-gray-700">
-                    <a href="#" class="flex items-center space-x-3">
-                        <i class="fas fa-sign-out-alt text-gray-300"></i>
-                        <span class="text-sm">Logout</span>
+                    <a href="{{ route('scholarships.index') }}" class="flex items-center space-x-3">
+                        <i class="fas fa-graduation-cap text-gray-300"></i>
+                        <span class="text-sm">Scholarships</span>
                     </a>
                 </li>
             </ul>

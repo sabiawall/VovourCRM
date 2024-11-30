@@ -9,21 +9,23 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('scholarships', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->unique();
-            $table->string('source')->nullable();
+            $table->string('country');
             $table->string('image')->nullable();
-            $table->text('details')->nullable();
+            $table->text('content');
             $table->timestamps();
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('scholarships');
     }
 };
