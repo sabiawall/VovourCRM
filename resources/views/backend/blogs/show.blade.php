@@ -7,6 +7,6 @@
     @if($blog->image)
     <p><img src="{{ asset('storage/' . $blog->image) }}" alt="Blog Image" width="300"></p>
     @endif
-    <div>{!! $blog->content !!}</div>
+    <div>{!! $blog->content !!}</div> <!-- Renders HTML content -->
 </div>
 @endsection
