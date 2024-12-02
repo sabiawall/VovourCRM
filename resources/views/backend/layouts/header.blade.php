@@ -2,7 +2,7 @@
     <button id="sidebarToggle" class="text-white md:hidden">
         <i class="fas fa-bars"></i>
     </button>
-    <div class="text-lg font-bold">Admin Dashboard</div>
+    <div class="text-lg font-bold">Dashboard</div>
     <div class="flex items-center space-x-4">
         <!-- Notifications -->
         <button class="relative text-white hover:text-gray-400">

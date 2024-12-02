@@ -54,12 +54,24 @@ class UserController extends Controller
             'password' => $request->password ? bcrypt($request->password) : $user->password,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('backend.users.index')->with('success', 'User updated successfully.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('backend.users.index')->with('success', 'User deleted successfully.');
+    }
+
+    public function assignRole(Request $request, $user)
+    {
+        $request->validate([
+            'role' => 'required|string|in:Admin,Editor',
+        ]);
+        
+        $user = User::findOrFail($user);
+        $user->syncRoles($request->role);
+
+        return redirect()->route('users.index')->with('success', 'Role assigned successfully!');
     }
 }

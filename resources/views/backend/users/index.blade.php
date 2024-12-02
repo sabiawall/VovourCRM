@@ -17,6 +17,7 @@
                     <th class="py-2 px-4 border-b">Name</th>
                     <th class="py-2 px-4 border-b">Email</th>
                     <th class="py-2 px-4 border-b">Actions</th>
+                    <th class="py-2 px-4 border-b">Assign Role</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,17 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                            </form>
+                        </td>
+                        <td class="py-2 px-4 border-b"> 
+                            <form action="{{ route('assign.role', $user->id) }}" method="POST">
+                                @csrf
+                                <label for="role">Assign Role:</label>
+                                <select name="role" id="role" class="border px-2 py-1">
+                                    <option value="Admin" {{ $user->hasRole('Admin') ? 'selected' : '' }}> Admin</option>
+                                    <option value="Editor" {{ $user->hasRole('Editor') ? 'selected' : '' }}> Editor</option>
+                                </select>
+                                <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded">Assign Role</button>
                             </form>
                         </td>
                     </tr>

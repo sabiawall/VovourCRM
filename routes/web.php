@@ -25,13 +25,13 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::resource('users', UserController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('scholarships', ScholarshipController::class);
+
+    Route::post('users/{user}/assign-role', [UserController::class, 'assignRole'])->name('assign.role');
 });
