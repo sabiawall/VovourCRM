@@ -14,7 +14,8 @@
         <thead>
             <tr class="bg-gray-200">
                 <th class="py-2 px-4 border-b">ID</th>
-                <th class="py-2 px-4 border-b">Name</th>
+                <th class="py-2 px-4 border-b">Role Name</th>
+                <th class="py-2 px-4 border-b">Permissions</th>
                 <th class="py-2 px-4 border-b">Action</th>
             </tr>
         </thead>
@@ -23,6 +24,15 @@
                 <tr>
                     <td class="py-2 px-4 border-b">{{ $role->id }}</td>
                     <td class="py-2 px-4 border-b">{{ $role->name }}</td>
+                    <td class="py-2 px-4 border-b">
+                        @if($role->permissions && $role->permissions->isNotEmpty())
+                            @foreach($role->permissions as $permission)
+                                <span class="bg-blue-100 text-blue-800 text-xs py-1 px-2 rounded-full">{{ $permission->name }}</span>
+                            @endforeach
+                        @else
+                            <span class="text-gray-500">No permissions assigned</span>
+                        @endif
+                    </td>
                     <td class="py-2 px-4 border-b">
                         <a href="{{ route('roles.edit', $role) }}" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit</a>
                         <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline-block">

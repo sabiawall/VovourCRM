@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -11,61 +11,54 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
-
-        return view('backend.roles.index', compact('roles'));  
-        // return response()->json($roles); 
+        return view('backend.roles.index', compact('roles'));
     }
 
     public function create()
     {
         $permissions = Permission::all();
-
         return view('backend.roles.create', compact('permissions'));
-        // return response()->json($permissions);
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|unique:roles,name',
-            'permissions' => 'required|array', 
+            'permissions' => 'nullable|array',
+            'permissions.*' => 'exists:permissions,id',
         ]);
 
         $role = Role::create([
             'name' => $request->name,
         ]);
 
-        $role->givePermissionTo($request->permissions);
+        if ($request->has('permissions')) {
+            $role->givePermissionTo($request->permissions);
+        }
 
-        return redirect()->route('backend.roles.index')->with('success', 'Role created successfully!');
+        return redirect()->route('roles.index')->with('success', 'Role created successfully!');
     }
 
     public function show($id)
     {
-        $role = Role::with('permissions')->findOrFail($id);
-
+        $role = Role::findOrFail($id);
         return view('backend.roles.show', compact('role'));
-        // return response()->json($role);
     }
 
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-
         $permissions = Permission::all();
 
-        // Get the permissions already assigned to this role
-        $rolePermissions = $role->permissions->pluck('id')->toArray();
-
-        return view('backend.roles.edit', compact('role', 'permissions', 'rolePermissions'));
-        // return response()->json(['role' => $role, 'permissions' => $permissions]);
+        return view('backend.roles.edit', compact('role', 'permissions'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|unique:roles,name,' . $id,
-            'permissions' => 'required|array',  // Make sure permissions are selected
+            'permissions' => 'nullable|array',
+            'permissions.*' => 'exists:permissions,id',
         ]);
 
         $role = Role::findOrFail($id);
@@ -73,19 +66,18 @@ class RoleController extends Controller
         $role->update([
             'name' => $request->name,
         ]);
+        if ($request->has('permissions')) {
+            $role->syncPermissions($request->permissions);
+        }
 
-        // Sync the selected permissions with the role
-        $role->syncPermissions($request->permissions);
-
-        return redirect()->route('backend.roles.index')->with('success', 'Role updated successfully!');
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully!');
     }
 
     public function destroy($id)
     {
         $role = Role::findOrFail($id);
-
         $role->delete();
 
-        return redirect()->route('backend.roles.index')->with('success', 'Role deleted successfully!');
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully!');
     }
 }
