@@ -15,7 +15,7 @@
             <tr class="bg-gray-200">
                 <th class="py-2 px-4 border-b">ID</th>
                 <th class="py-2 px-4 border-b">Title</th>
-                <th class="py-2 px-4 border-b">Discount</th>
+                <th class="py-2 px-4 border-b">Short Description</th>
                 <th class="py-2 px-4 border-b">Actions</th>
             </tr>
         </thead>

@@ -11,38 +11,28 @@ class RolesAndPermissionsSeeder extends Seeder
 {
     public function run()
     {
-        $adminRole = Role::create(['name' => 'Admin']);
-        $editorRole = Role::create(['name' => 'Editor']);
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
-        Permission::create(['name' => 'create-users']);
-        Permission::create(['name' => 'edit-users']);
-        Permission::create(['name' => 'delete-users']);
-        Permission::create(['name' => 'manage-blogs']);
+        $permissions = [
+            'view roles',
+            'create roles',
+            'edit roles',
+            'delete roles',
+            'assign permission roles',
+            'view users',
+            'create users',
+            'edit users',
+            'delete users',
+            'view blogs',
+            'create blogs',
+            'edit blogs',
+            'delete blogs',
+        ];
 
-        // Assign permissions to Admin
-        $adminRole->givePermissionTo(['create-users', 'edit-users', 'delete-users', 'manage-blogs']);
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
         
-        // Assign permissions to Editor
-        $editorRole->givePermissionTo('manage-blogs');
-
-        $user1 = User::find(1);
-        if (!$user1) {
-            $user1 = User::create([
-                'name' => 'Admin',
-                'email' => 'admin@gmail.com',
-                'password' => bcrypt('password123')
-            ]);
-        }
-        $user1->assignRole('Admin');
-
-        $user2 = User::find(2);
-        if (!$user2) {
-            $user2 = User::create([
-                'name' => 'Editor',
-                'email' => 'editor@gmail.com',
-                'password' => bcrypt('password123')
-            ]);
-        }
-        $user2->assignRole('Editor');
+        $adminRole->givePermissionTo($permissions);
     }
 }

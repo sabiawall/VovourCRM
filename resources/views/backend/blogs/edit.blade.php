@@ -22,7 +22,7 @@
             <input type="text" id="title" name="title" value="{{ old('title', $blog->title) }}" class="w-full px-4 py-2 border rounded" required>
         </div>
         <div>
-            <label for="discount" class="block text-gray-700">Discount (%)</label>
+            <label for="discount" class="block text-gray-700">Short Description</label>
             <input type="number" id="discount" name="discount" value="{{ old('discount', $blog->discount) }}" class="w-full px-4 py-2 border rounded">
         </div>
         <div>

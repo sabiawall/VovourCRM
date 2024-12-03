@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScholarshipController;
 
 /*
@@ -34,4 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('scholarships', ScholarshipController::class);
 
     Route::post('users/{user}/assign-role', [UserController::class, 'assignRole'])->name('assign.role');
+
+    Route::resource('roles', RoleController::class);
 });
