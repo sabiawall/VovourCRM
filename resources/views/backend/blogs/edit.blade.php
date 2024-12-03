@@ -22,8 +22,8 @@
             <input type="text" id="title" name="title" value="{{ old('title', $blog->title) }}" class="w-full px-4 py-2 border rounded" required>
         </div>
         <div>
-            <label for="discount" class="block text-gray-700">Short Description</label>
-            <input type="number" id="discount" name="discount" value="{{ old('discount', $blog->discount) }}" class="w-full px-4 py-2 border rounded">
+            <label for="short_description" class="block text-gray-700">Short Description</label>
+            <input type="text" id="short_description" name="short_description" value="{{ old('short_description', $blog->short_description) }}" class="w-full px-4 py-2 border rounded">
         </div>
         <div>
             <label for="image" class="block text-gray-700">Image</label>

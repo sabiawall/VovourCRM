@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>{{ $blog->title }}</h1>
-    <p><strong>Short Description:</strong> {{ $blog->discount ? $blog->discount . '%' : 'N/A' }}</p>
+    <p><strong>Short Description:</strong> {{ $blog->short_description }}</p>
     @if($blog->image)
     <p><img src="{{ asset('storage/' . $blog->image) }}" alt="Blog Image" width="300"></p>
     @endif

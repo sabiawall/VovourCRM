@@ -16,6 +16,7 @@
                         <span class="text-sm">Users</span>
                     </a>
                 </li> 
+                
                 <!-- @can('permission-name')
                 <li class="p-4 hover:bg-gray-700">
                     <a href="/users" class="flex items-center space-x-3">
@@ -24,6 +25,13 @@
                     </a>
                 </li>
                 @endcan            -->
+                
+                <li class="p-4 hover:bg-gray-700">
+                    <a href="/roles" class="flex items-center space-x-3">
+                        <i class="fas fa-user-shield text-gray-300"></i>
+                        <span class="text-sm">Roles</span>
+                    </a>
+                </li> 
                 <li class="p-4 hover:bg-gray-700">
                     <a href="{{ route('blogs.index') }}" class="flex items-center space-x-3">
                         <i class="fas fa-file-alt text-gray-300"></i>

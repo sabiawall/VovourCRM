@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->decimal('discount', 8, 2)->nullable();
+            $table->string('short_description');
             $table->string('image')->nullable();
             $table->text('content');
             $table->timestamps();

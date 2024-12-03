@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto p-4">
-    <h1 class="text-3xl font-semibold mb-4">Add New Blog</h1>
+    <h1 class="text-3xl font-semibold mb-4">Add New Role</h1>
 
     @if(session('error'))
         <div class="bg-red-500 text-white p-2 rounded mb-4">{{ session('error') }}</div>
@@ -15,25 +15,13 @@
     @endif
 
 
-    <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+    <form action="{{ route('roles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         <div>
-            <label for="title" class="block text-gray-700">Title</label>
+            <label for="title" class="block text-gray-700">Name</label>
             <input type="text" id="title" name="title" class="w-full px-4 py-2 border rounded" required>
         </div>
-        <div>
-            <label for="short_description" class="block text-gray-700">Short Description</label>
-            <input type="text" id="short_description" name="short_description" class="w-full px-4 py-2 border rounded">
-        </div>
-        <div>
-            <label for="image" class="block text-gray-700">Image</label>
-            <input type="file" id="image" name="image" class="w-full px-4 py-2 border rounded">
-        </div>
-        <div>
-            <label for="content" class="block text-gray-700">Content</label>
-            <textarea id="content" name="content" class="w-full px-4 py-2 border rounded" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded">Add Blog</button>
+        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded">Add role</button>
     </form>
 </div>
 @endsection

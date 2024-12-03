@@ -22,7 +22,7 @@ class BlogController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'discount' => 'nullable|numeric|max:100',
+            'short_description' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048',
             'content' => 'required',
         ]);
@@ -49,7 +49,7 @@ class BlogController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'discount' => 'nullable|numeric|max:100',
+            'short_description' => 'nullable|string|max:255',
             'image' => 'nullable|image|max:2048',
             'content' => 'required',
         ]);

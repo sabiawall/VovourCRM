@@ -12,7 +12,7 @@ class RoleController extends Controller
     {
         $roles = Role::all();
 
-        return view('roles.index', compact('roles'));  
+        return view('backend.roles.index', compact('roles'));  
         // return response()->json($roles); 
     }
 
@@ -20,7 +20,7 @@ class RoleController extends Controller
     {
         $permissions = Permission::all();
 
-        return view('roles.create', compact('permissions'));
+        return view('backend.roles.create', compact('permissions'));
         // return response()->json($permissions);
     }
 
@@ -37,14 +37,14 @@ class RoleController extends Controller
 
         $role->givePermissionTo($request->permissions);
 
-        return redirect()->route('roles.index')->with('success', 'Role created successfully!');
+        return redirect()->route('backend.roles.index')->with('success', 'Role created successfully!');
     }
 
     public function show($id)
     {
         $role = Role::with('permissions')->findOrFail($id);
 
-        return view('roles.show', compact('role'));
+        return view('backend.roles.show', compact('role'));
         // return response()->json($role);
     }
 
@@ -57,7 +57,7 @@ class RoleController extends Controller
         // Get the permissions already assigned to this role
         $rolePermissions = $role->permissions->pluck('id')->toArray();
 
-        return view('roles.edit', compact('role', 'permissions', 'rolePermissions'));
+        return view('backend.roles.edit', compact('role', 'permissions', 'rolePermissions'));
         // return response()->json(['role' => $role, 'permissions' => $permissions]);
     }
 
@@ -77,7 +77,7 @@ class RoleController extends Controller
         // Sync the selected permissions with the role
         $role->syncPermissions($request->permissions);
 
-        return redirect()->route('roles.index')->with('success', 'Role updated successfully!');
+        return redirect()->route('backend.roles.index')->with('success', 'Role updated successfully!');
     }
 
     public function destroy($id)
@@ -86,6 +86,6 @@ class RoleController extends Controller
 
         $role->delete();
 
-        return redirect()->route('roles.index')->with('success', 'Role deleted successfully!');
+        return redirect()->route('backend.roles.index')->with('success', 'Role deleted successfully!');
     }
 }
