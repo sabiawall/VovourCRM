@@ -26,6 +26,50 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+    
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+    
+    @if(session('info'))
+            Swal.fire({
+                icon: 'info',
+                title: 'Information',
+                text: '{{ session('info') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+    
+        @if(session('warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: '{{ session('warning') }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButton = document.getElementById('sidebarToggle');

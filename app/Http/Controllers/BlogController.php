@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Exception;
 
 class BlogController extends Controller
 {
@@ -20,19 +21,25 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string|max:255',
-            'short_description' => 'nullable|string|max:255',
-            'image' => 'nullable|image|max:2048',
-            'content' => 'required',
-        ]);
-
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('blogs');
+        try{
+            $data = $request->validate([
+                'title' => 'required|string|max:255',
+                'short_description' => 'nullable|string|max:255',
+                'image' => 'nullable|image|max:2048',
+                'content' => 'required',
+            ]);
+    
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image')->store('blogs');
+            }
+    
+            Blog::create($data);
+            return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
         }
-
-        Blog::create($data);
-        return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
+        catch(Exception $e){
+            // dd($e);
+            return redirect()->route('blogs.index')->with('error', 'Something went wrong.');
+        }
     }
 
     public function show(Blog $blog)

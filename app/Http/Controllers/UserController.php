@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -9,8 +10,13 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('backend.users.index', compact('users'));
+        $users = User::with('roles')->whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'admin');
+        })->get();
+
+        $roles = Role::all();
+
+        return view('backend.users.index', compact('users', 'roles'));
     }
 
     public function create()
@@ -66,7 +72,7 @@ class UserController extends Controller
     public function assignRole(Request $request, $user)
     {
         $request->validate([
-            'role' => 'required|string|in:Admin,Editor',
+            'role' => 'required|string',
         ]);
         
         $user = User::findOrFail($user);

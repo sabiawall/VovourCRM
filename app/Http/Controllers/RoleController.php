@@ -33,7 +33,8 @@ class RoleController extends Controller
         ]);
 
         if ($request->has('permissions')) {
-            $role->givePermissionTo($request->permissions);
+            $permissions = Permission::whereIn('id', $request->permissions)->pluck('name');
+            $role->givePermissionTo($permissions);
         }
 
         return redirect()->route('roles.index')->with('success', 'Role created successfully!');
@@ -67,7 +68,9 @@ class RoleController extends Controller
             'name' => $request->name,
         ]);
         if ($request->has('permissions')) {
-            $role->syncPermissions($request->permissions);
+            $permissions = Permission::whereIn('id', $request->permissions)->pluck('name');
+            $role->syncPermissions($permissions);
+
         }
 
         return redirect()->route('roles.index')->with('success', 'Role updated successfully!');

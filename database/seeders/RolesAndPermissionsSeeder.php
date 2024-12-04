@@ -27,6 +27,10 @@ class RolesAndPermissionsSeeder extends Seeder
             'create blogs',
             'edit blogs',
             'delete blogs',
+            'view scholarships',
+            'create scholarships',
+            'edit scholarships',
+            'delete scholarships',
         ];
 
         foreach ($permissions as $permission) {
