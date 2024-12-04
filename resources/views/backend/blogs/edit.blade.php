@@ -4,16 +4,6 @@
 <div class="container mx-auto p-4">
     <h1 class="text-3xl font-semibold mb-4">Edit Blog</h1>
 
-    @if(session('error'))
-        <div class="bg-red-500 text-white p-2 rounded mb-4">{{ session('error') }}</div>
-    @endif
-
-    @if(session('success'))
-        <div id="successMessage" class="bg-green-500 text-white p-2 rounded mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <form action="{{ route('blogs.update', $blog) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         @method('PUT')

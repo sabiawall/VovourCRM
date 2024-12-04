@@ -31,7 +31,7 @@
 
                 @can('view blogs')
                 <li class="p-4 hover:bg-gray-700">
-                    <a href="{{ route('blogs.index') }}" class="flex items-center space-x-3">
+                    <a href="{{ route('blogs.index') }}" class="flex items-center space-x-5">
                         <i class="fas fa-file-alt text-gray-300"></i>
                         <span class="text-sm">Blogs</span>
                     </a>

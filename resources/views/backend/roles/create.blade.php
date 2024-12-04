@@ -17,15 +17,17 @@
 
         <div class="mb-4">
             <label for="permissions" class="block text-sm font-medium text-gray-700">Permissions</label>
-            <select id="permissions" name="permissions[]" multiple 
-                    class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
+            <div class="mt-2">
                 @foreach($permissions as $permission)
-                    <option value="{{ $permission->id }}" 
-                        {{ in_array($permission->id, old('permissions', [])) ? 'selected' : '' }}>
-                        {{ $permission->name }}
-                    </option>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="permission_{{ $permission->id }}" name="permissions[]" value="{{ $permission->id }}" 
+                            {{ in_array($permission->id, old('permissions', [])) ? 'checked' : '' }} class="mr-2">
+                        <label for="permission_{{ $permission->id }}" class="text-sm text-gray-700">
+                            {{ $permission->name }}
+                        </label>
+                    </div>
                 @endforeach
-            </select>
+            </div>
             @error('permissions')
                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
             @enderror

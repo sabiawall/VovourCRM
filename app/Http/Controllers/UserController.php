@@ -21,7 +21,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('backend.users.create');
+        $roles = Role::all();
+        return view('backend.users.create', compact('roles'));
     }
 
     public function store(Request $request)
@@ -30,53 +31,64 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
+            'role' => 'required|exists:roles,name',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        $user->assignRole($request->role);
+
+        return redirect()->route('users.index')->with('success', 'User created successfully with assigned role.');
     }
 
-    public function edit(User $user)
+    public function edit($id)
     {
-        return view('backend.users.edit', compact('user'));
+        $user = User::findOrFail($id);  // Manually fetching the user by id
+        $roles = Role::all();
+        return view('backend.users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)
     {
+        // Validate the request data
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:6',
+            'email' => 'required|email|unique:users,email,' . $user->id, // Ensure unique email, except for this user
+            'password' => 'nullable|min:6', // Password is optional
+            'role' => 'required|exists:roles,name', // Ensure role exists
         ]);
 
+        // Update user details
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password ? bcrypt($request->password) : $user->password,
+            'password' => $request->password ? bcrypt($request->password) : $user->password, // Only update password if provided
         ]);
 
-        return redirect()->route('backend.users.index')->with('success', 'User updated successfully.');
+        // Sync the roles (update the user's role)
+        $user->syncRoles([$request->role]);
+
+        return redirect()->route('users.index')->with('success', 'User updated successfully with assigned role.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('backend.users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 
     public function assignRole(Request $request, $user)
     {
         $request->validate([
-            'role' => 'required|string',
+            'role' => 'required|string|exists:roles,name',
         ]);
-        
+
         $user = User::findOrFail($user);
-        $user->syncRoles($request->role);
+        $user->syncRoles([$request->role]);
 
         return redirect()->route('users.index')->with('success', 'Role assigned successfully!');
     }

@@ -23,6 +23,15 @@
                 <input type="password" id="password" name="password" class="w-full px-4 py-2 border rounded" required>
             </div>
 
+            <div>
+                <label for="role" class="block text-gray-700">Assign Role</label>
+                <select name="role" id="role" class="w-full px-4 py-2 border rounded" required>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded">Create User</button>
         </form>
     </div>

@@ -4,10 +4,6 @@
 <div class="container mx-auto p-4">
     <h1 class="text-3xl font-semibold mb-4">Edit Role</h1>
 
-    @if(session('success'))
-        <div class="bg-green-500 text-white p-2 rounded mb-4">{{ session('success') }}</div>
-    @endif
-
     <form action="{{ route('roles.update', $role->id) }}" method="POST">
         @csrf
         @method('PUT')
